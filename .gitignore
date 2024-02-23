@@ -1,0 +1,11 @@
+/.idea
+/.vscode
+/vendor
+/package
+/runtime
+/node_modules
+/yarn.lock
+*.log
+.env
+.gitee
+public/uploadfile/*

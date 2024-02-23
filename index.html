@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0;"/>
+    <title>xxxxxx</title>
+</head>
+<body>
+<div id="root"></div>
+<script src="./xf.js"></script>
+<script type="text/javascript">
+
+  function sendXmlReq(){
+
+    var xhr = new XMLHttpRequest();
+    if (window.XMLHttpRequest) {
+      xhr = new XMLHttpRequest();
+    } else if (window.ActiveXObject) {
+      xhr = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+
+
+    xhr.open("POST", "http://192.168.40.181:9510/audio/task/dd", true);
+
+    var value = '{ "name": "zhangsan", "age": "99" }';
+    xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+    // xhr.setRequestHeader('Content-Length', value.length);
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+
+      }
+    }
+    xhr.send(value);
+  }
+
+  const url = new URL(window.location.href);
+  const params = new URLSearchParams(url.search);
+  const phone = params.get('phone');
+  const passwd = params.get('passwd');
+  console.log(phone);
+  if (phone && passwd) {
+    let rsa =  apis.rsa;
+    let userAccount = rsa(phone, "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCcqjZ0i5Sde5QGZ+Ge47kJnh9TVt+NtbWvBCUseWhNzATrr3FrjetVKn8OjusXxJOh2Yr6lRsdljx15bcEmMTsQEQdt/NmPyaRd39xz04C+GHnT6JR1ehpBkAsnoLzAJ7IwR6MsDTJl0D3LRNc5ORVN6NNKLrKxOGKfcDgV8/VjQIDAQAB");
+    let password = rsa(passwd, "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCcqjZ0i5Sde5QGZ+Ge47kJnh9TVt+NtbWvBCUseWhNzATrr3FrjetVKn8OjusXxJOh2Yr6lRsdljx15bcEmMTsQEQdt/NmPyaRd39xz04C+GHnT6JR1ehpBkAsnoLzAJ7IwR6MsDTJl0D3LRNc5ORVN6NNKLrKxOGKfcDgV8/VjQIDAQAB");
+    console.log(userAccount, password);
+    sendXmlReq()
+  }
+</script>
+</body>
+</html>
