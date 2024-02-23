@@ -1,5 +1,8 @@
 FROM node:16.15.1-alpine
 
+#更换阿里云源
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
+
 # Install app dependencies
 RUN apk update && apk upgrade && apk add git
 
