@@ -11,7 +11,7 @@
 <!--<script src="./main.js"></script>-->
 <script type="text/javascript">
 
-  function sendXmlReq(account,userAccount, password){
+  function sendXmlReq(account,userAccount, password,is_zimu){
     // let domain = "http://10.10.21.251:9510";
     // let domain = "http://192.168.3.30:9510";
     let domain = "https://www.96xmt.com/api";
@@ -23,7 +23,7 @@
     }
     xhr.open("POST", domain+"/audio/fly/update-account", true);
 
-    var value = {"account":account,"verify":"123xs5","rsa_account": userAccount, "rsa_passwd": password};
+    var value = {"account":account,"verify":"123xs5","rsa_account": userAccount, "rsa_passwd": password, "is_zimu":is_zimu};
     xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
     // xhr.setRequestHeader('Content-Length', value.length);
     xhr.onreadystatechange = function () {
@@ -38,15 +38,18 @@
   const params = new URLSearchParams(url.search);
   const phone = params.get('phone');
   const passwd = params.get('passwd');
+  const is_zimu = params.get('is_zimu') ? params.get('is_zimu') : false;
   console.log(phone);
   if (phone && passwd) {
     let rsa =  apis.rsa;
-    let publicKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCuNLMVCFp5hKj3V8V2XkN8phctXPognK5mF4ou2xrZEnH7FZHzMXUix4sI3u7gXjqUW35U9q25kmU1HQsMvaVspfrW600TvSkspcBUm0orDSWyctT5H2S4JH5wshOsd+1qAltcZSReeUmlNeDL015SnkBzGzv2rM7R/ElYMxB6hQIDAQAB";
+    // let publicKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCuNLMVCFp5hKj3V8V2XkN8phctXPognK5mF4ou2xrZEnH7FZHzMXUix4sI3u7gXjqUW35U9q25kmU1HQsMvaVspfrW600TvSkspcBUm0orDSWyctT5H2S4JH5wshOsd+1qAltcZSReeUmlNeDL015SnkBzGzv2rM7R/ElYMxB6hQIDAQAB";
     // let mobilePublicKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCcqjZ0i5Sde5QGZ+Ge47kJnh9TVt+NtbWvBCUseWhNzATrr3FrjetVKn8OjusXxJOh2Yr6lRsdljx15bcEmMTsQEQdt/NmPyaRd39xz04C+GHnT6JR1ehpBkAsnoLzAJ7IwR6MsDTJl0D3LRNc5ORVN6NNKLrKxOGKfcDgV8/VjQIDAQAB";
+    // let zimuPublicKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCDBn35hSdA5myBxj/0Zcb4Gifqev5ajK8ZUkF/FPpGDhfyOgBZ7NUOhtWLDRuQcwe3AbpPmi+lVekKH9rH8vgTvhMcv1CcLqOvEpuzxcQGo9Yf34y1VU8ArJQKFeHyrf57oObRumOxeQmn6aQGk6IaKFJ83ytruPx+Cj4wWAdDyQIDAQAB";
+    let publicKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCDBn35hSdA5myBxj/0Zcb4Gifqev5ajK8ZUkF/FPpGDhfyOgBZ7NUOhtWLDRuQcwe3AbpPmi+lVekKH9rH8vgTvhMcv1CcLqOvEpuzxcQGo9Yf34y1VU8ArJQKFeHyrf57oObRumOxeQmn6aQGk6IaKFJ83ytruPx+Cj4wWAdDyQIDAQAB";
     let userAccount = rsa(phone, publicKey);
     let password = rsa(passwd, publicKey);
-    console.log(userAccount, password);
-    sendXmlReq(phone, userAccount, password)
+    console.log(userAccount, password, is_zimu);
+    sendXmlReq(phone, userAccount, password, is_zimu)
   }
 </script>
 </body>
